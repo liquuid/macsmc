@@ -1,0 +1,38 @@
+#!/bin/bash
+
+while true ;do
+
+SYSPATH="/sys/devices/platform/applesmc*/"
+LIGHT=`cat $SYSPATH/light`
+FAN1IN=`cat $SYSPATH/fan1_input`
+FAN2IN=`cat $SYSPATH/fan2_input`
+FAN1MIN=`cat $SYSPATH/fan1_min`
+FAN2MIN=`cat $SYSPATH/fan2_min`
+FAN1MAX=`cat $SYSPATH/fan1_max`
+FAN2MAX=`cat $SYSPATH/fan2_max`
+POSITION=`cat $SYSPATH/position`
+CPUTEMP=`sensors | grep  Core`
+CORE0TEMP=`sensors | grep "Core 0" | cut -d "+" -f2 | cut -d "." -f 1`
+
+if [ "`id -u`" = "0" ]; then
+	if [ $CORE0TEMP -lt 55 ]; then
+		echo 2500 > $SYSPATH/fan1_min
+		echo 2500 > $SYSPATH/fan2_min
+	else
+		echo 6000 > $SYSPATH/fan1_min
+		echo 6000 > $SYSPATH/fan2_min
+	fi
+fi
+
+if [ "$1" != "-d" ]; then
+clear
+echo "Macbook (pro)  Sensor "
+echo "" 
+echo "Sensor light ( left , right ): $LIGHT"
+echo "Left fan : $FAN1IN (min : $FAN1MIN , max : $FAN1MAX)"
+echo "Right fan: $FAN2IN (min : $FAN2MIN , max : $FAN2MAX)"
+echo "Acceleration : $POSITION" 
+echo "$CPUTEMP" 
+sleep 1
+fi
+done
