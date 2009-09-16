@@ -25,14 +25,17 @@ if [ "`id -u`" = "0" ]; then
 fi
 
 if [ "$1" != "-d" ]; then
-clear
-echo "Macbook (pro)  Sensor "
-echo "" 
-echo "Sensor light ( left , right ): $LIGHT"
-echo "Left fan : $FAN1IN (min : $FAN1MIN , max : $FAN1MAX)"
-echo "Right fan: $FAN2IN (min : $FAN2MIN , max : $FAN2MAX)"
-echo "Acceleration : $POSITION" 
-echo "$CPUTEMP" 
-sleep 1
+	clear
+	echo "Macbook (pro)  Sensor "
+	echo "" 
+	echo "Sensor light ( left , right ): $LIGHT"
+	echo "Left fan : $FAN1IN (min : $FAN1MIN , max : $FAN1MAX)"
+	echo "Right fan: $FAN2IN (min : $FAN2MIN , max : $FAN2MAX)"
+	echo "Acceleration : $POSITION" 
+	echo "$CPUTEMP" 
+	sleep 1
+
+else
+	sleep 1
 fi
 done
