@@ -12,10 +12,10 @@ FAN1MAX=`cat $SYSPATH/fan1_max`
 FAN2MAX=`cat $SYSPATH/fan2_max`
 POSITION=`cat $SYSPATH/position`
 CPUTEMP=`sensors | grep  Core`
-CORE0TEMP=`sensors | grep "Core 0" | cut -d "+" -f2 | cut -d "." -f 1`
+CORE0TEMP=`sensors | grep temp3  | cut -d "+" -f2 | cut -d "." -f 1`
 
 if [ "`id -u`" = "0" ]; then
-	if [ $CORE0TEMP -lt 55 ]; then
+	if [ $CORE0TEMP -lt 60 ]; then
 		echo 2500 > $SYSPATH/fan1_min
 		echo 2500 > $SYSPATH/fan2_min
 	else
